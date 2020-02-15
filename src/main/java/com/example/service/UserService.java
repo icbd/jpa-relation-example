@@ -1,12 +1,10 @@
 package com.example.service;
 
 import com.example.dto.UserDto;
-import com.example.model.Address;
 import com.example.model.User;
 import com.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -50,18 +48,5 @@ public class UserService {
 
     public void delete(Long id) {
         userRepository.deleteById(id);
-    }
-
-    /**
-     * 优先取有favorite标记的地址, 如果没有就取最近编辑的一个地址
-     *
-     * @param userId
-     * @return
-     */
-    public Optional<Address> fetchRightAddress(Long userId) {
-        PageRequest pageable = PageRequest.of(1, 1);
-        Page<Address> addresses = addressService.findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(userId, pageable);
-        Address address = addresses.getContent().get(0);
-        return Optional.ofNullable(address);
     }
 }

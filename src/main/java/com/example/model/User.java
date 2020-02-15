@@ -38,9 +38,9 @@ public class User extends BaseModel {
      * 单向一对多关系: 一个用户 -- 多个地址
      */
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonManagedReference
     @OrderBy("updatedAt DESC")
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private List<Address> addresses = new ArrayList<Address>();
 
 

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,16 @@ public class AddressService {
 
     public Page<Address> findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(Long userId, Pageable pageable) {
         return addressRepository.findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(userId, pageable);
+    }
+
+    /**
+     * 优先取有favorite标记的地址, 如果没有就取最近编辑的一个地址
+     *
+     * @param userId
+     * @return
+     */
+    public Optional<Address> fetchRightAddress(Long userId) {
+        return addressRepository.findFirstByUserIdOrderByFavoriteDescUpdatedAtDesc(userId);
     }
 
     public void delete(Long addressId) {
