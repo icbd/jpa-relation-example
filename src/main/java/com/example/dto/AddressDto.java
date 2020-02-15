@@ -8,4 +8,5 @@ import lombok.Setter;
 public class AddressDto {
     private String location;
     private String phoneNumber;
+    private Boolean favorite;
 }

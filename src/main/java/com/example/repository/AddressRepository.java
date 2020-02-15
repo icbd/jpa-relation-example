@@ -12,5 +12,5 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
     Optional<Address> getFirstByUserIdOrderByUpdatedAtDesc(Long userId);
 
-    Page<Address> findAllByUserIdOrderByFavoriteAscUpdatedAtDesc(Long userId, Pageable pageable);
+    Page<Address> findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(Long userId, Pageable pageable);
 }

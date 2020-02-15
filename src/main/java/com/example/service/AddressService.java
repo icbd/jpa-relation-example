@@ -24,11 +24,16 @@ public class AddressService {
                 .location(addressDto.getLocation())
                 .phoneNumber(addressDto.getPhoneNumber())
                 .userId(userId)
+                .favorite(addressDto.getFavorite())
                 .build();
         return addressRepository.save(address);
     }
 
     public Page<Address> findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(Long userId, Pageable pageable) {
-        return addressRepository.findAllByUserIdOrderByFavoriteAscUpdatedAtDesc(userId, pageable);
+        return addressRepository.findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(userId, pageable);
+    }
+
+    public void delete(Long addressId) {
+        addressRepository.deleteById(addressId);
     }
 }

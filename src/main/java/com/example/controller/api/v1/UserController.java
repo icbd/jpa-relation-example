@@ -1,13 +1,7 @@
-package com.example.controller;
+package com.example.controller.api.v1;
 
-import com.example.dto.AddressDto;
-import com.example.dto.OrderDto;
 import com.example.dto.UserDto;
-import com.example.model.Address;
-import com.example.model.Order;
 import com.example.model.User;
-import com.example.service.AddressService;
-import com.example.service.OrderService;
 import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.controller.api.v1.ApiV1BaseControler.BASE_URL;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping(BASE_URL + "/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final OrderService orderService;
-    private final AddressService addressService;
 
     /**
-     * GET: /users
+     * GET: /api/v1/users
      *
      * @param pageable
      * @return
@@ -45,7 +39,7 @@ public class UserController {
     }
 
     /**
-     * GET: /users/:userId
+     * GET: /api/v1/users/:userId
      *
      * @param userId
      * @return
@@ -56,7 +50,7 @@ public class UserController {
     }
 
     /**
-     * POST: /users
+     * POST: /api/v1/users
      *
      * @param userDto
      * @return
@@ -68,7 +62,7 @@ public class UserController {
     }
 
     /**
-     * PATCH: /users/:userId
+     * PATCH: /api/v1/users/:userId
      *
      * @param userId
      * @param userDto
@@ -80,51 +74,12 @@ public class UserController {
     }
 
     /**
-     * DELETE: /users/:userId
+     * DELETE: /api/v1/users/:userId
      *
      * @param userId
      */
     @DeleteMapping("/{userId}")
     public void delete(@PathVariable Long userId) {
         userService.delete(userId);
-    }
-
-//    public Page<Order> orderIndex(@PageableDefault Pageable pageable) {
-//        OrderService
-//    }
-
-    /**
-     * POST: /users/:userId/orders
-     *
-     * @return
-     */
-    @PostMapping("/{userId}/orders")
-    public ResponseEntity<Order> createOrder(@PathVariable Long userId, @RequestBody OrderDto orderDto) {
-        User user = userService.findById(userId);
-        Order order = orderService.create(orderDto, user);
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
-    }
-
-    /**
-     * GET: /users/:userId/addresses
-     *
-     * @param userId
-     * @param pageable
-     * @return
-     */
-    @GetMapping("/{userId}/addresses")
-    public Page<Address> addressIndex(@PathVariable Long userId, @PageableDefault Pageable pageable) {
-        return addressService.findAllByUserIdOrderByFavoriteDescUpdatedAtDesc(userId, pageable);
-    }
-
-    /**
-     * POST: /users/:userId/addresses
-     *
-     * @return
-     */
-    @PostMapping("/{userId}/addresses")
-    public Address addressCreate(@PathVariable Long userId, @RequestBody AddressDto addressDto) {
-        User user = userService.findById(userId);
-        return addressService.create(addressDto, userId);
     }
 }
