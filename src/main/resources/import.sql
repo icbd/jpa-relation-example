@@ -7,3 +7,6 @@ insert into address (`user_id`, `favorite`, `location`, `phone_number`, `created
 insert into product (`sku`, `description`, `price`, `created_at`, `updated_at`) values ('sku-1', 'TOP-1', 345, '2020-02-13', '2020-02-14');
 insert into product (`sku`, `description`, `price`, `created_at`, `updated_at`) values ('sku-2', 'TOP-2', 12.99, '2020-02-13', '2020-02-14');
 insert into product (`sku`, `description`, `price`, `created_at`, `updated_at`) values ('sku-3', 'TOP-3', '10.00', '2020-02-13', '2020-02-14');
+insert into orders (`status`, `address_id`, `user_id`, `created_at`, `updated_at`) values ('PENDING', 2, 1, '2020-02-16', '2020-02-16');
+insert into order_item (`order_id`, `count`, `product_id`, `created_at`, `updated_at`) values (1, 111, 1, '2020-02-16', '2020-02-16');
+insert into order_item (`order_id`, `count`, `product_id`, `created_at`, `updated_at`) values (1, 222, 2, '2020-02-16', '2020-02-16');
